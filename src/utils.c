@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:42:14 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/10/24 17:59:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/10/31 12:45:31 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_free(void *ptr)
 	ptr = NULL;
 }
 
-void	free_all(t_data *data)
-{
-	if (data->argc1 > 0)
-		ft_free(data->cmd1);
-}
+// void	free_all(t_data *data)
+// {
+// 	if (data->argc1 > 0)
+// 		ft_free(data->cmd1);
+// }
 
 t_data	*get_data(void)
 {
@@ -33,6 +33,15 @@ t_data	*get_data(void)
 }
 
 void	ft_error(char *str)
+{
+	ft_putstr_fd(ERR_MAIN, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	perror(ERR_EXP);
+	// free_all(get_data());
+	exit(ERROR);
+}
+
+void	my_error(char *str)
 {
 	ft_putstr_fd(ERR_MAIN, STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);

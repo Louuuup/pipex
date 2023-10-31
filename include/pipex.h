@@ -16,29 +16,33 @@
 # include "libft.h"
 # include <string.h>
 # include <stdio.h>
+#include <fcntl.h> ///tmp
 
 //==================COLORS===================//
 # define RED "\033[31m"
 //==================ERRORS===================//
 # define ERR_MAIN "\033[31m\033[1mERROR > \033[0m"
+# define ERR_EXP "\033[37m\033[1mREASON\033[0m"
 # define ERR_PIPE "Couldn't open the pipe\n"
 # define ERR_MOREARG "Need more arguments\n./pipex <f1> <cmd1> <cmd2> <f2>\n"
 # define ERR_LESSARG "Need less arguments\n./pipex <f1> <cmd1> <cmd2> <f2>\n"
 # define ERR_UNK_CMD "Command unknown or not in usual environment paths.\n"
+# define ERR_FORK "Forked up!\n"
+# define ERR_CMD "Could not run cmd with those args\n"
+# define ERR_PATHS "Could not verif paths!\n"
+# define ERR_DUP "Dup error\n"
+
 //==================Structs===================//
 typedef struct data
 {
+	int		path_idx[2];
 	char	*input;
 	char	*cmd1;
-	char	**args1;
-	int		argc1;
-
+	char	**args1; //malloc
 	char	*cmd2;
-	char	**args2;
-	int		argc2;
-
+	char	**args2; //malloc
 	char	*output;
-	char	**paths;
+	char	**paths; //malloc
 	int		tmp;
 
 }			t_data;
@@ -48,22 +52,22 @@ typedef struct data
 void	ft_free(void *ptr);
 t_data	*get_data(void);
 void	ft_error(char *str);
+void	my_error(char *str);
 //
 //==================[utils1.c]===================//
-//
 int	get_next_char(char *str, int start);
-
+//
 //==================[parse.c]===================//
-void	parse(int argc, char **argv);
+void	parse(int argc, char **argv, char **env);
 void	find_paths(char **env);
 //
 //================[cmd_parse.c]=================//
-char	*get_cmd(char *str);
-int		args_count(char *str);
-// i is starting point after cmd.
-char	**get_args(int i, char *str);
+int		get_args_a(char *str);
+int		get_args_b(char *str);
 // Returns 1 if no valid path found, else 0.
-int		verif_paths(t_data *data);
+int		verif_paths(char *cmd, t_data *data);
+//================[error_handler.c]=================//
+void	ft_dup2(int fd, int std);
 
 #endif
 

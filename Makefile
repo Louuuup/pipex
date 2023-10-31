@@ -6,7 +6,7 @@
 #    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 16:18:52 by ycyr-roy          #+#    #+#              #
-#    Updated: 2023/10/24 19:12:58 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2023/10/31 12:42:56 by ycyr-roy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = pipex
 #==============================================================================#
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code -Ofast -g
-SRC = main.c	utils.c		utils1.c		parse.c		cmd_parse.c
+SRC = main.c	utils.c		utils1.c		parse.c		cmd_parse.c \
+	cmd_utils.c		error_handler.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
@@ -44,7 +45,7 @@ $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	@printf	$(UP)$(CUT)
 $(NAME): $(BIN_DIR) $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ $(OBJS) $(LFLAGS)
-	@echo "$(GREEN)$(BOLD)✅ Successfully compiled $(YELLOW)PIPEX$(RESET)"
+	@echo "$(GREEN)$(BOLD)✅ Successfully compiled $(YELLOW)PIPEX         $(RESET)"
 $(BIN_DIR):
 	@$(MKDIRP) $(BIN_DIR)
 libft:

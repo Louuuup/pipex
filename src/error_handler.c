@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 19:04:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/10/27 14:12:25 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2023/10/31 12:33:56 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2023/10/31 12:54:45 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_next_char(char *str, int start)
+void ft_dup2(int fd, int std)
 {
-	int i;
+	int	err;
 
-	i = 1;
-	if (!str)
-		ft_error("unnamed error\n");
-	while (str[i + start])
+	err = dup2(fd, std);
+
+	printf("yo\n");
+	if (err == -1)
 	{
-		if (str[i + start] == '"')
-			return (i);
-		i++;
+		write(1,"*", 1);
+		ft_error(ERR_DUP);
 	}
-	return (-1);
-
+	close(fd);
 }
