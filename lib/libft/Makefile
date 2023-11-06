@@ -6,7 +6,7 @@
 #    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2023/10/23 14:46:03 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2023/10/31 15:39:56 by ycyr-roy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRC = ft_bzero.c \
 	ft_lstmap.c \
 	get_next_line.c \
 	ft_charjoinfree.c \
-	ft_has_space.c
+	ft_has_space.c \
+	print_grid.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

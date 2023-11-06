@@ -18,6 +18,12 @@
 # include <stdio.h>
 #include <fcntl.h> ///tmp
 
+//==================VALUES===================//
+# define DEBUG_ON 1
+# define TRUE 1
+# define FALSE 0
+# define YES 1
+# define NO 0
 //==================COLORS===================//
 # define RED "\033[31m"
 //==================ERRORS===================//
@@ -33,15 +39,18 @@
 # define ERR_DUP "Dup error\n"
 
 //==================Structs===================//
+typedef struct cmd
+{
+	char	**args;
+	void	*next;
+}			t_cmd;
+
 typedef struct data
 {
-	int		path_idx[2];
 	char	*input;
-	char	*cmd1;
-	char	**args1; //malloc
-	char	*cmd2;
-	char	**args2; //malloc
+	t_cmd	*cmd; //malloc
 	char	*output;
+	int		path_idx[2];
 	char	**paths; //malloc
 	int		tmp;
 
@@ -53,17 +62,20 @@ void	ft_free(void *ptr);
 t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
+void	free_all(t_data *data);
 //
 //==================[utils1.c]===================//
-int	get_next_char(char *str, int start);
+int		get_next_char(char *str, int start);
+t_cmd	*add_lst(t_cmd *cmd);
+void	*lst_free(t_cmd *cmd);
+void	arr_free(void **arr);
 //
 //==================[parse.c]===================//
 void	parse(int argc, char **argv, char **env);
 void	find_paths(char **env);
 //
 //================[cmd_parse.c]=================//
-int		get_args_a(char *str);
-int		get_args_b(char *str);
+char	**get_args(char *str);
 // Returns 1 if no valid path found, else 0.
 int		verif_paths(char *cmd, t_data *data);
 //================[error_handler.c]=================//

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:04:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/10/27 14:12:25 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:18:56 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,40 @@ int	get_next_char(char *str, int start)
 	}
 	return (-1);
 
+}
+
+t_cmd	*add_lst(t_cmd *cmd)
+{
+	t_cmd	*new;
+
+	new = ft_calloc(1, sizeof(t_cmd));
+	cmd->next = new;
+	return (new);
+}
+
+void	*lst_free(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+
+	while (cmd)
+	{
+		tmp = cmd->next;
+		arr_free((void *)cmd->args);
+		ft_free(cmd);
+		cmd = tmp;
+	}
+	return (NULL);
+}
+
+void	arr_free(void **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		ft_free(arr[i]);
+		i++;
+	}
+	ft_free(arr);
 }

@@ -6,50 +6,32 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:01:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/10/27 14:12:32 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:20:18 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_args_a(char *str)
+char **get_args(char *str)
 {
-	t_data *data;
 	char **arr;
 
+	arr = NULL;
 	if (!str)
-		return (1);
-	data = get_data();
+		return (NULL);
 	if (!ft_has_space(str))
 	{
-		data->cmd1 = str;
-		return (0);
+		if (DEBUG_ON)
+			printf("str (%s) has no space\n", str);
+		arr = (char **)ft_calloc(1, sizeof(char *));
+		arr[0] = str;
+		return (arr);
 	}
 	else
 		arr = ft_split(str, ' ');
-	data->args1 = arr;
-	data->cmd1 = arr[0];
-	return (0);
+	return (arr);
 }
-int	get_args_b(char *str)
-{
-	t_data *data;
-	char **arr;
 
-	if (!str)
-		return (1);
-	data = get_data();
-	if (!ft_has_space(str))
-	{
-		data->cmd2 = str;
-		return (0);
-	}
-	else
-		arr = ft_split(str, ' ');
-	data->args2 = arr;
-	data->cmd2 = arr[0];
-	return (0);
-}
 
 // int		args_count(int i, char *str)
 // {
