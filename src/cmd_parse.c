@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:01:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 14:28:08 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:39:09 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ char **get_args(char *str)
 	return (arr);
 }
 
+void	ft_open(t_data *data)
+{
+	data->input_fd = open(data->input, O_RDONLY);
+	data->output_fd = open(data->output, O_WRONLY);
+	if (DEBUG_ON)
+		printf("FD_IN = %d\nFD_OUT = %d\n", data->input_fd, data->output_fd);
+	if (data->input_fd == -1)
+		ft_error(ERR_OPEN_I);
+	if (data->output_fd == -1)
+		ft_error(ERR_OPEN_O);
+}
 
 // int		args_count(int i, char *str)
 // {

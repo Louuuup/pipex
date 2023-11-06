@@ -37,7 +37,8 @@
 # define ERR_CMD "Could not run cmd with those args\n"
 # define ERR_PATHS "Could not verif paths!\n"
 # define ERR_DUP "Dup error\n"
-
+# define ERR_OPEN_I "WRONG INPUT\n"
+# define ERR_OPEN_O "WRONG OUTPUT\n"
 //==================Structs===================//
 typedef struct cmd
 {
@@ -48,8 +49,10 @@ typedef struct cmd
 typedef struct data
 {
 	char	*input;
-	t_cmd	*cmd; //malloc
+	int		input_fd;
 	char	*output;
+	int		output_fd;
+	t_cmd	*cmd; //malloc
 	int		path_idx[2];
 	char	**paths; //malloc
 	int		tmp;
@@ -58,14 +61,14 @@ typedef struct data
 
 //
 //==================[utils.c]===================//
-void	ft_free(void *ptr);
 t_data	*get_data(void);
 void	ft_error(char *str);
 void	my_error(char *str);
-void	free_all(t_data *data);
+int		get_next_char(char *str, int start);
 //
 //==================[utils1.c]===================//
-int		get_next_char(char *str, int start);
+void	ft_free(void *ptr);
+void	free_all(t_data *data);
 t_cmd	*add_lst(t_cmd *cmd);
 void	*lst_free(t_cmd *cmd);
 void	arr_free(void **arr);
@@ -76,8 +79,10 @@ void	find_paths(char **env);
 //
 //================[cmd_parse.c]=================//
 char	**get_args(char *str);
-// Returns 1 if no valid path found, else 0.
+// Returns -1 if no valid path found, else 0.
 int		verif_paths(char *cmd, t_data *data);
+void	ft_open(t_data *data);
+//
 //================[error_handler.c]=================//
 void	ft_dup2(int fd, int std);
 

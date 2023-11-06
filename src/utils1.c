@@ -6,27 +6,30 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 19:04:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 14:35:42 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:37:15 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_next_char(char *str, int start)
+
+void	ft_free(void *ptr)
 {
-	int i;
+	if (ptr != NULL)
+		free(ptr);
+	ptr = NULL;
+}
 
-	i = 1;
-	if (!str)
-		ft_error("unnamed error\n");
-	while (str[i + start])
-	{
-		if (str[i + start] == '"')
-			return (i);
-		i++;
-	}
-	return (-1);
-
+void	free_all(t_data *data)
+{
+	if (data->cmd != NULL)
+		lst_free(data->cmd);
+	if (data->paths)
+		arr_free((void *)data->paths);
+	if (data->input_fd != -1)
+		close(data->input_fd);
+	if (data->output_fd != -1)
+		close(data->output_fd);
 }
 
 t_cmd	*add_lst(t_cmd *cmd)
@@ -45,9 +48,13 @@ void	*lst_free(t_cmd *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		arr_free((void *)cmd->args);
+		if (cmd->args != NULL)
+			arr_free((void *)cmd->args);
 		ft_free(cmd);
-		cmd = tmp;
+		if (tmp)
+			cmd = tmp;
+		else
+			break ;
 	}
 	return (NULL);
 }

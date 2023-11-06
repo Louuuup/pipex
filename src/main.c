@@ -6,12 +6,11 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:30:58 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 14:31:04 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:15:32 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
 void	run_cmd(char **cmd, char *valid_path, char **env)
 {
 	char	*tmp;
@@ -32,6 +31,8 @@ void	pipe_in(int fd[2], t_data *data, char **env)
 	if (DEBUG_ON)
 		printf("\nthis is pipe_in\n");
 	close(fd[0]);
+	if (dup2(data->input_fd, STDIN_FILENO) == -1)
+		ft_error(ERR_DUP);
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 		ft_error(ERR_DUP);
 	run_cmd(data->cmd->args, data->paths[data->path_idx[0]], env);
@@ -51,6 +52,7 @@ void pipe_out(int fd[2], t_data *data, char **env)
 	// if (DEBUG_ON)
 	// 	printf("fd[0] is %d\nfd[1] is %d\n", fd[0], fd[1]);
 	ft_dup2(fd[0], STDIN_FILENO);
+	ft_dup2(data->output_fd, STDOUT_FILENO);
 	run_cmd(cmd->args, data->paths[data->path_idx[1]], env);
 }
 

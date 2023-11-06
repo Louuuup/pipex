@@ -6,11 +6,12 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:32:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 14:37:57 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:16:40 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 void	init(t_data *data, char **argv)
 {
 	t_cmd	*tmp;
@@ -37,6 +38,7 @@ void	parse(int argc, char **argv, char **env)
 	else if (argc < 5)
 		my_error(ERR_MOREARG);
 	find_paths(env);
+	ft_open(data);
 	// print_grid(data->cmd->args); /////
 	data->path_idx[0] = verif_paths(data->cmd->args[0], data);
 	data->path_idx[1] = verif_paths(tmp->args[0], data);
