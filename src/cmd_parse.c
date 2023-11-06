@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:01:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 11:20:18 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:28:08 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ char **get_args(char *str)
 	char **arr;
 
 	arr = NULL;
+	// *arr = NULL;
 	if (!str)
 		return (NULL);
 	if (!ft_has_space(str))
 	{
 		if (DEBUG_ON)
 			printf("str (%s) has no space\n", str);
-		arr = (char **)ft_calloc(1, sizeof(char *));
-		arr[0] = str;
+		arr = (char **)ft_calloc(2, sizeof(char *));
+		arr[0] = ft_strdup(str);
 		return (arr);
 	}
 	else

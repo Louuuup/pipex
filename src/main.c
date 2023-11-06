@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:30:58 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 13:12:44 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:31:04 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void pipe_out(int fd[2], t_data *data, char **env)
 {
 	t_cmd *cmd;
 
+	cmd = NULL;
 	if (DEBUG_ON)
 		printf("\nthis is pipe_out\n");
 	close(fd[1]);

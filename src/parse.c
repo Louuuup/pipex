@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:32:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 13:22:57 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:37:57 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	init(t_data *data, char **argv)
 	t_cmd	*tmp;
 
 	data->input = argv[1];
-	tmp = ft_calloc(1, sizeof(t_cmd *));
+	tmp = ft_calloc(1, sizeof(t_cmd));
 	data->cmd = tmp;
 	data->cmd->args = get_args(argv[2]);
-	tmp = add_lst(tmp);
+	tmp = add_lst(data->cmd);
 	tmp->args = get_args(argv[3]);
 	data->output = argv[4];
 
