@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:30:58 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 15:15:32 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/07 14:22:28 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	main(int argc, char *argv[], char **env_p)
 	close(fd[1]);
 
 	waitpid(pid[1], NULL, 0);
+	if (data->error != NULL)
+		ft_error(data->error);
 	free_all(data);
 	return (NO_ERROR);
 }

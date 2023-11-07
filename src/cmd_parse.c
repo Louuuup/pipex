@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:01:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/06 15:39:09 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:11:10 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char **get_args(char *str)
 	char **arr;
 
 	arr = NULL;
-	// *arr = NULL;
 	if (!str)
 		return (NULL);
 	if (!ft_has_space(str))
@@ -33,16 +32,46 @@ char **get_args(char *str)
 	return (arr);
 }
 
-void	ft_open(t_data *data)
+void	open_fd(t_data *data)
 {
-	data->input_fd = open(data->input, O_RDONLY);
-	data->output_fd = open(data->output, O_WRONLY);
+	data->input_fd = ft_open(data->input, F_INPUT);
+	data->output_fd = ft_open(data->output, F_OUTPUT);
 	if (DEBUG_ON)
 		printf("FD_IN = %d\nFD_OUT = %d\n", data->input_fd, data->output_fd);
-	if (data->input_fd == -1)
-		ft_error(ERR_OPEN_I);
+	if (data->input_fd == -1)\
+	{
+		err_resume(ERR_OPEN_I);
+		data->input_fd = get_devnull();
+	}
 	if (data->output_fd == -1)
 		ft_error(ERR_OPEN_O);
+}
+
+int	ft_open(char *file, int file_type)
+{
+	int fd;
+
+	if (file_type == F_INPUT)
+	{
+		if (access(file, R_OK) == ERROR)
+		{
+			err_resume(ERR_READ_I);
+			get_data()->invalid_input = 1;
+			return (get_devnull());
+		}
+		fd = open(file, O_RDONLY);
+	}
+	else if (file_type == F_OUTPUT)
+	{
+		if (access(file, R_OK) == ERROR)
+			ft_error(ERR_READ_O);
+		if (access(file, W_OK) == ERROR)
+			ft_error(ERR_WRITE_O);
+		fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	}
+	else
+		fd = ERROR;
+	return (fd);
 }
 
 // int		args_count(int i, char *str)

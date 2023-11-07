@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <string.h>
 # include <stdio.h>
-#include <fcntl.h> ///tmp
+#include <fcntl.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0
@@ -24,6 +24,9 @@
 # define FALSE 0
 # define YES 1
 # define NO 0
+# define F_INPUT 41
+# define F_OUTPUT 42
+# define VOID "/dev/null"
 //==================COLORS===================//
 # define RED "\033[31m"
 //==================ERRORS===================//
@@ -39,6 +42,10 @@
 # define ERR_DUP "Dup error\n"
 # define ERR_OPEN_I "WRONG INPUT\n"
 # define ERR_OPEN_O "WRONG OUTPUT\n"
+# define ERR_READ_I "Unable to read Input\n"
+# define ERR_READ_O "Unable to read Output\n"
+# define ERR_WRITE_O "Unable to write in Output\n"
+
 //==================Structs===================//
 typedef struct cmd
 {
@@ -55,7 +62,8 @@ typedef struct data
 	t_cmd	*cmd; //malloc
 	int		path_idx[2];
 	char	**paths; //malloc
-	int		tmp;
+	char	*error;
+	int		invalid_input;
 
 }			t_data;
 
@@ -81,14 +89,17 @@ void	find_paths(char **env);
 char	**get_args(char *str);
 // Returns -1 if no valid path found, else 0.
 int		verif_paths(char *cmd, t_data *data);
-void	ft_open(t_data *data);
+void	open_fd(t_data *data);
+int		ft_open(char *file, int file_type);
 //
 //================[error_handler.c]=================//
 void	ft_dup2(int fd, int std);
+void	err_resume(char *str);
+int 	get_devnull(void);
 
 #endif
 
+// TO TEST / TO ADD
+// verify (access) if file writable or readable
+// still run 2nd command when input dont exist. instead of pipe, possible to take fd from dev/null
 
-// PIPE[2]
-// fd[0] = read
-// fd[1] = write
