@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <string.h>
 # include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 //==================VALUES===================//
 # define DEBUG_ON 0
@@ -59,9 +59,9 @@ typedef struct data
 	int		input_fd;
 	char	*output;
 	int		output_fd;
-	t_cmd	*cmd; //malloc
+	t_cmd	*cmd;
 	int		path_idx[2];
-	char	**paths; //malloc
+	char	**paths;
 	char	*error;
 	int		invalid_input;
 
@@ -95,11 +95,6 @@ int		ft_open(char *file, int file_type);
 //================[error_handler.c]=================//
 void	ft_dup2(int fd, int std);
 void	err_resume(char *str);
-int 	get_devnull(void);
+int		get_devnull(void);
 
 #endif
-
-// TO TEST / TO ADD
-// verify (access) if file writable or readable
-// still run 2nd command when input dont exist. instead of pipe, possible to take fd from dev/null
-

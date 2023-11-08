@@ -6,7 +6,7 @@
 #    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 16:18:52 by ycyr-roy          #+#    #+#              #
-#    Updated: 2023/10/31 12:42:56 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2023/11/08 14:18:13 by ycyr-roy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = pipex
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code -Ofast -g
 SRC = main.c	utils.c		utils1.c		parse.c		cmd_parse.c \
-	cmd_utils.c		error_handler.c
+	error_handler.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
@@ -61,6 +61,8 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(GREEN)$(BOLD)✅ Fully cleaned $(YELLOW)PIPEX$(RESET)"
+norm: all
+	norminette
 re: fclean all
 .PHONY: all clean fclean re libft bonus
 #=====================================COLORS=====================================#

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:32:23 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/07 14:54:06 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:19:45 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init(t_data *data, char **argv)
 	tmp = add_lst(data->cmd);
 	tmp->args = get_args(argv[3]);
 	data->output = argv[4];
-
 }
+
 void	parse(int argc, char **argv, char **env)
 {
 	t_data	*data;
@@ -39,13 +39,15 @@ void	parse(int argc, char **argv, char **env)
 		my_error(ERR_MOREARG);
 	find_paths(env);
 	open_fd(data);
-	// print_grid(data->cmd->args); /////
+	if (DEBUG_ON)
+		print_grid(data->cmd->args);
 	data->path_idx[0] = verif_paths(data->cmd->args[0], data);
 	data->path_idx[1] = verif_paths(tmp->args[0], data);
 	if (data->path_idx[0] == -1 || data->path_idx[1] == -1)
 		ft_error(ERR_UNK_CMD);
 	if (DEBUG_ON)
-		printf(">Path_idxs:\n[0] is %d\n[1] is %d\n\n", data->path_idx[0], data->path_idx[1]);
+		printf(">Path_idxs:\n[0] is %d\n[1] is %d\n\n", \
+		data->path_idx[0], data->path_idx[1]);
 }
 
 void	find_paths(char **env)
@@ -62,7 +64,8 @@ void	find_paths(char **env)
 			break ;
 		i++;
 	}
-	// printf("found %s\n", env[i]);
+	if (DEBUG_ON)
+		printf("found %s\n", env[i]);
 	data->paths = ft_split(env[i], ':');
 	tmp = data->paths[0];
 	data->paths[0] = ft_strtrim(tmp, "PATHS=");
