@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:01:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2023/11/08 14:17:31 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:27:44 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	ft_open(char *file, int file_type)
 	}
 	else if (file_type == F_OUTPUT)
 	{
-		if (access(file, R_OK) == ERROR)
+		if (access(file, R_OK) == ERROR && access(file, F_OK) != ERROR)
 			ft_error(ERR_READ_O);
-		if (access(file, W_OK) == ERROR)
+		if (access(file, W_OK) == ERROR && access(file, F_OK) != ERROR)
 			ft_error(ERR_WRITE_O);
 		fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
